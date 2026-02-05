@@ -3,12 +3,11 @@ let gameState = {
     { total: 0, current: 0, name: "שחקן 1" },
     { total: 0, current: 0, name: "שחקן 2" },
   ],
-  currentPlayer:  0,
+  currentPlayer: 0,
   gameActive: true,
   gameMode: "pvp",
   rolling: false,
 };
-
 
 const diceFaces = {
   1: [{ x: 50, y: 50 }],
@@ -57,7 +56,6 @@ export function updateDisplay() {
   const player2Card = document.getElementById("player2Card");
 
   if (gameState.currentPlayer === 0) {
-
     player1Card.classList.add("active");
     player2Card.classList.remove("active");
     player1Card.querySelector(".current-turn").textContent = "תורך!";
@@ -79,8 +77,8 @@ function showMessage(text, type = "info") {
 
 function drawDice(number, numDice) {
   const dice = document.querySelectorAll(".dice");
-  const face = dice[numDice].querySelector('.dice-face');
-  face.innerHTML = ''
+  const face = dice[numDice].querySelector(".dice-face");
+  face.innerHTML = "";
 
   const dots = diceFaces[number];
   dots.forEach((dot) => {
@@ -105,7 +103,6 @@ async function rollDice(numDice) {
   dice[numDice].classList.remove("rolling");
   gameState.rolling = false;
 
- 
   return result;
 }
 
@@ -128,7 +125,6 @@ document.getElementById("rollBtn").addEventListener("click", async () => {
     updateDisplay();
     showMessage(` הטלת ${roll1 + roll2}!`, "info");
   }
-  
 });
 
 async function switchPlayer() {
@@ -142,26 +138,20 @@ document.getElementById("holdBtn").addEventListener("click", () => {
 
   const player = gameState.players[gameState.currentPlayer];
 
- 
-
   player.total += player.current;
   player.current = 0;
 
   updateDisplay();
 
   if (player.total >= 50) {
-    endGame();}
-    else{
-
+    endGame();
+  } else {
     showMessage(`✅ נשמר! ${player.total} נקודות סה"כ.`, "success");
     setTimeout(() => {
       switchPlayer();
-    }, 1000);}
-  
+    }, 1000);
+  }
 });
-
-
-
 
 function endGame() {
   gameState.gameActive = false;
@@ -173,5 +163,5 @@ function endGame() {
 }
 
 updateDisplay();
-drawDice(1,0);
-drawDice(1,1);
+drawDice(1, 0);
+drawDice(1, 1);
